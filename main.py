@@ -24,7 +24,7 @@ class Arr:
         return Iterator(self.data)
 
     def __reversed__(self):
-        return self.data[::-1]
+        return Iterator(self.data, -1)
 
     def index(self, item):
         for i in range(len(self.data)):
@@ -55,9 +55,9 @@ class Iterator:
             self.step = -1
 
     def __next__(self):
-        if self._cursor + 1 >= len(self.collection) and self.step == 1 or self._cursor - 1 <= 0 and self.step == -1:
-            raise StopIteration()
         self._cursor += self.step
+        if self._cursor >= len(self.collection) or self._cursor < 0:
+            raise StopIteration()
         return self.collection[self._cursor]
 
     # def __current__(self):
