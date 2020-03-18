@@ -1,11 +1,15 @@
 from array import array
 
-class Arr():
+
+class Arr:
     def __init__(self, element_type, *elements):
         self.data = array(element_type, elements)
 
     def __getitem__(self, item):
-        return self.data[item]
+        if isinstance(item, slice):
+            return self.data[item]
+        else:
+            return self.data[item]
 
     def __len__(self):
         return len(self.data)
@@ -35,6 +39,7 @@ class Arr():
                 counter += 1
         return counter
 
+
 class Iterator:
     def __iter__(self):
         return self
@@ -49,12 +54,11 @@ class Iterator:
             self._cursor = len(self.collection)
             self.step = -1
 
-
     def __next__(self):
         if self._cursor + 1 >= len(self.collection) and self.step == 1 or self._cursor - 1 <= 0 and self.step == -1:
             raise StopIteration()
         self._cursor += self.step
         return self.collection[self._cursor]
 
-    #def __current__(self):
+    # def __current__(self):
     #    pass
