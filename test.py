@@ -5,8 +5,8 @@ array = Arr('i', 1, 2, 1, 4, 1)
 
 def reverse():
     b = reversed(array)
-    print(b)
     c = [_ for _ in b]
+    print(b)
     print(c)
 
 
