@@ -56,7 +56,7 @@ class Iterator:
 
     def __next__(self):
         self._cursor += self.step
-        if self._cursor >= len(self.collection) or self._cursor < 0:
+        if self._cursor < 0 or self._cursor >= len(self.collection):
             raise StopIteration()
         return self.collection[self._cursor]
 
