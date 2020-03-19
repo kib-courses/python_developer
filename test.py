@@ -1,6 +1,6 @@
 from main import Arr
 
-array = Arr('i', 1, 2, 1, 4, 1)
+array = Arr("u", "1", "2", "1", "4", "1")
 
 
 def reverse():
@@ -21,7 +21,8 @@ def length():
 
 def get_it(i):
     print(array[3])
-    print(array[1:3])
+    c = [_ for _ in array[1:3]]
+    print(c)
 
 
 def index_test(i):
@@ -36,5 +37,10 @@ reverse()
 iterate()
 length()
 get_it(3)
-index_test(4)
-count_test(1)
+index_test("4")
+count_test("1")
+array["4"] = "3"
+iterate()
+del array[3]
+iterate()
+

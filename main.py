@@ -11,6 +11,14 @@ class Arr:
         else:
             return self.data[item]
 
+    def __setitem__(self, key, value):
+        for i in range(len(self.data)):
+            if self.data[i] == key:
+                self.data[i] = value
+
+    def __delitem__(self, key):
+        del self.data[key]
+
     def __len__(self):
         return len(self.data)
 
@@ -39,6 +47,24 @@ class Arr:
                 counter += 1
         return counter
 
+    def insert(self):
+        pass
+
+    def append(self):
+        pass
+
+    def clear(self):
+        pass
+
+    def extend(self):
+        pass
+
+    def pop(self):
+        pass
+
+    def remove(self):
+        pass
+
 
 class Iterator:
     def __iter__(self):
@@ -59,6 +85,3 @@ class Iterator:
         if self._cursor < 0 or self._cursor >= len(self.collection):
             raise StopIteration()
         return self.collection[self._cursor]
-
-    # def __current__(self):
-    #    pass
