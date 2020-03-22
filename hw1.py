@@ -98,7 +98,6 @@ class ArrayList:
 
     def __iter__(self):
         return ArrayIterator(self.array, self.length)
-    #__iter__, __reverse__, нет смысла определять, тк есть ___getitem__ и __len__(так написано тут https://pythonz.net/references/named/object.__reversed__/)
 
     def count(self, el):
         counter = 0
