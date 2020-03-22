@@ -99,6 +99,9 @@ class ArrayList:
     def __iter__(self):
         return ArrayIterator(self.array, self.length)
 
+    def __reversed__(self):
+        return ArrayIterator(self.array[::-1], self.length)
+
     def count(self, el):
         counter = 0
         for  i in range(self.length):
@@ -148,3 +151,6 @@ if __name__ == '__main__':
     # working with iterator:
     for i in list1:
         print('i = ', i)
+    print(next(iter(list1)))
+    # reversed возвращает итератор
+    print(reversed(list1))
