@@ -1,0 +1,110 @@
+from array import array
+
+class MyCollection:
+
+	def __new__(cls, type, value):
+		return object.__new__(cls)
+
+
+	def __init__(self, type, value):
+		if type == int:
+			self.data = array('i', value)
+			#i
+		elif type == float:
+			self.data = array('d', value)
+			#d
+		elif type == str:
+			self.data = array('u', value)
+			#c
+		self.type = type
+
+	def __str__(self):
+		return str(self.data.tolist())
+
+	def __getitem__(self, index):
+		return self.data[index]
+
+	def __setitem__(self, index, value):
+		if type(value) != self.type:
+			raise Exception("BadType")
+		self.data[index] = value
+
+	def __iter__(self):
+		return iter(self.data)
+
+	def __len__(self):
+		len = 0
+		for i in self.data:
+			len += 1
+		return len
+
+	def __delitem__(self, index):
+		del self.data[index]
+
+	def insert(self, index, value):
+		if type(value) != self.type:
+			raise Exception("BadType")
+		self.data.insert(index, value)
+
+	def __contains__(self, value):
+		if type(value) != self.type:
+			raise Exception("BadType")
+		return value in self.data
+
+	def __reversed__(self):
+		return self.data[::-1].tolist()
+
+	def index(self, value):
+		if type(value) != self.type:
+			raise Exception("BadType")
+		if value in self.data:
+			it = -1
+			for x in self.data:
+				it += 1
+				if x == value:
+					return it
+		else:
+			raise Exception("ValueError")
+
+	def count(self, value):
+		if type(value) != self.type:
+			raise Exception("BadType")
+		it = 0
+		for x in self.data:
+			if x == value:
+				it += 1
+		return it
+
+	def append(self, value):
+		if type(value) != self.type:
+			raise Exception("BadType")
+		self.data.fromlist([value])
+
+	def pop(self, index = "default"):
+		if index == "default":
+			index = len(self) - 1
+		value = self.data[index]
+		del self.data[index]
+		return value
+
+	def extend(self, value):
+		for x in value:
+			if type(x) != self.type:
+				raise Exception("BadType")
+		self.data.fromlist(value)
+
+	def remove(self, value):
+		if type(value) != self.type:
+			raise Exception("BadType")
+		if value in self.data:
+			index = self.index(value)
+			del self.data[index]
+		else:
+			raise Exception("ValueError")
+
+	def __iadd__(self, value):
+		for x in value:
+			if type(x) != self.type:
+				raise Exception("BadType")
+		self.data.fromlist(value.data.tolist())
+		return self
