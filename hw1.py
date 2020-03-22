@@ -1,6 +1,6 @@
 from array import array
 
-
+# класс итератора(вау)
 class ArrayIterator:
     def __init__(self, collection, length):
         self.collection = collection
@@ -112,16 +112,6 @@ class ArrayList:
         for  i in range(self.length):
             if (self.array[i] == el): return i
         return 'No such element'
-
-    #def __add__(self, other):
-        if isinstance(other, ArrayList):
-            if (other.type == self.type):
-                return ArrayList(other.capacity + self.capacity, self.type,
-                other.length + self.length, other.array + self.array)
-            else:
-                raise ValueError('Different types')
-        else:
-            raise ValueError('Different types of objects')
 
     def __contains__(self, el):
         for  i in range(self.length):
