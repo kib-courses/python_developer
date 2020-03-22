@@ -1,5 +1,22 @@
 from array import array
 
+
+class ArrayIterator:
+    def __init__(self, collection, length):
+        self.collection = collection
+        self.length = length
+        self.pos = 0
+        
+    def __next__(self):
+        if (self.pos < self.length):
+            self.pos += 1
+            return self.collection[self.pos-1]
+        else:
+            raise StopIteration
+        
+    def __iter__(self):
+        return self
+        
 # для array используем только repr, len, индексацию и объединение, трактууем как сишный массив
 
 types = {'i' : "<class 'int'>", 'f' : "<class 'float'>", 'u' : "<class 'str'>"}
@@ -12,7 +29,8 @@ class ArrayList:
             self.length = initial_length
             self.array = array(initial_type, [])
             self.type = types[initial_type]
-        else: raise ValueError("Capacity can't be less, than 0")
+        else:
+            raise ValueError("Capacity can't be less, than 0")
 
     def __str__(self):
         result = ''
@@ -21,7 +39,7 @@ class ArrayList:
         return result
 
     def __repr__(self):
-        return str(self)
+        return repr(self.array)
 
     # добавление элементов(с возможностью добавления сразу нескольких(но минимум одного))
     def append(self, el, *keys):
@@ -29,8 +47,10 @@ class ArrayList:
             if (str(type(el)) == self.type):
                 self.array += array(self.array.typecode, [el])
                 self.length += 1
-            else: raise TypeError('Incorrect key type')
-        else: raise IndexError('Array is full')
+            else:
+                raise TypeError('Incorrect key type')
+        else:
+            raise IndexError('Array is full')
         for key in keys:
             self.append(key)
 
@@ -41,20 +61,25 @@ class ArrayList:
                 self.array = array(self.array.typecode, self.array[0:pos] +
                 array(self.array.typecode, [el]) + self.array[pos:self.length])
                 self.length += 1
-            else: raise TypeError('Incorrect key type')
-        else: raise IndexError('Array is full')
+            else:
+                raise TypeError('Incorrect key type')
+        else:
+            raise IndexError('Array is full')
 
     def pop(self):
         if (self.length > 0):
             self.array = self.array[:-1]
             self.length += -1
-        else: raise IndexError('Array is empty')
+        else:
+            raise IndexError('Array is empty')
 
     def remove(self, el):
         if (self.length > 0):
             pos = None
             for i in range(self.length):
-                if (self.array[i] == el): pos = i; break
+                if (self.array[i] == el):
+                    pos = i
+                    break
             if (pos is not None):
                 self.array = self.array[:pos] + self.array[pos+1:]
                 self.length += -1
@@ -62,7 +87,8 @@ class ArrayList:
                 print('No such key in Array')
                 return
                 #raise KeyError('No such key in Array')
-        else: raise IndexError('Array is empty')
+        else:
+            raise IndexError('Array is empty')
 
     def __len__(self):
         return self.length
@@ -70,6 +96,8 @@ class ArrayList:
     def __getitem__(self, pos):
         return self.array[pos]
 
+    def __iter__(self):
+        return ArrayIterator(self.array, self.length)
     #__iter__, __reverse__, нет смысла определять, тк есть ___getitem__ и __len__(так написано тут https://pythonz.net/references/named/object.__reversed__/)
 
     def count(self, el):
@@ -88,8 +116,10 @@ class ArrayList:
             if (other.type == self.type):
                 return ArrayList(other.capacity + self.capacity, self.type,
                 other.length + self.length, other.array + self.array)
-            else: raise ValueError('Different types')
-        else: raise ValueError('Different types of objects')
+            else:
+                raise ValueError('Different types')
+        else:
+            raise ValueError('Different types of objects')
 
     def __contains__(self, el):
         for  i in range(self.length):
