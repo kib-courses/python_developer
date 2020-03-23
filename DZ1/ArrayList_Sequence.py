@@ -1,21 +1,12 @@
 
 from array import array
 
-class ArrayList():
+class ArrayList:
     def __init__(self, type, init_list=[]):
-        try:
-            self.data=array(type, init_list)
-        except TypeError as er:
-            self.data=array(type)
-            print(er)
+        self.data=array(type, init_list)
 
     def __getitem__(self, item):
-        try:
-            return self.data[item]
-        except IndexError as er:
-            print(er)
-        except TypeError as er:
-            print(er)
+        return self.data[item]
 
     def __len__(self):
         return len(self.data)
@@ -31,7 +22,9 @@ class ArrayList():
         return (self.data[i] for i in range(len(self.data)))
 
     def __reversed__(self):
-        return self.data[::-1]
+        #for i in range(len(self.data)):
+        #    yield self.data[len(self.data)-i]
+        return (self.data[len(self.data)-1-i] for i in range(len(self.data)))
 
     def index(self, item):
         for i in range(len(self.data)):
@@ -40,7 +33,11 @@ class ArrayList():
         raise ValueError
 
     def count(self, item):
-        return len([self.data[i] for i in range(len(self.data)) if item==self.data[i]])
+        counter = 0
+        for i in range(len(self.data)):
+            if self.data[i]==item:
+                counter += 1
+        return counter
 
 
 if __name__=="__main__":
@@ -73,11 +70,18 @@ if __name__=="__main__":
     for v in my_array3:
         print(v, end='  ')
     print()
+    itr = iter(my_array1)
+    while True:
+        try:
+            print(next(itr), end=' ')
+        except StopIteration:
+            break
+    print()
 
     # Переворот массивов
-    print("Reversed [1,2,2,3,4,5] is {}".format(reversed(my_array1)))
-    print("Reversed [1.5, 7.7, 123.1] is {}".format(reversed(my_array2)))
-    print("Reversed ['s','t','r','i','n','g'] is {}".format(reversed(my_array3)))
+    print("Reversed [1,2,2,3,4,5] is {}".format(list(reversed(my_array1))))
+    print("Reversed [1.5, 7.7, 123.1] is {}".format(list(reversed(my_array2))))
+    print("Reversed ['s','t','r','i','n','g'] is {}".format(list(reversed(my_array3))))
 
     # Проверка вхождений индекса
     print("3 on the {} place in [1,2,2,3,4,5]".format(my_array1.index(3)))
@@ -88,3 +92,4 @@ if __name__=="__main__":
     print("count of 2 in [1,2,2,3,4,5] is {}".format(my_array1.count(2)))
     print("count of 1.1 in [1.5, 7.7, 123.1] is {}".format(my_array2.count(1.1)))
     print("count of n in ['s','t','r','i','n','g'] is {}".format(my_array3.count('n')))
+
