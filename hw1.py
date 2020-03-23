@@ -21,16 +21,16 @@ class ArrayIterator:
 
 types = {'i' : "<class 'int'>", 'f' : "<class 'float'>", 'u' : "<class 'str'>"}
 
-# для инициализации испольуем буковки i, f или u. Как для оригинальных array
+# для инициализации используем буковки i, f или u. Как для оригинальных array
 class ArrayList:
-    def __init__(self, initial_capacity, initial_type, initial_length = 0):
+    def __init__(self, initial_capacity, initial_type):
         if (initial_capacity > 0):
             self.capacity = initial_capacity
-            self.length = initial_length
+            self.length = 0
             self.array = array(initial_type, [])
             self.type = types[initial_type]
         else:
-            raise ValueError("Capacity can't be less, than 0")
+            raise ValueError("Capacity can't be less, than 1")
 
     def __str__(self):
         result = ''
