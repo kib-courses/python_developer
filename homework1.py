@@ -7,16 +7,15 @@ class Sequence:
         self.data = array(element_type, elements)
 
     def __getitem__(self, item):
-        # if isinstance(item, slice):
-        #     # return self.data[item]
-        #     first_el, *elements = self.data[item]
-        #     return type(self.data[item])
-        # else:
+        if isinstance(item, slice):
+            # return self.data[item]
+            first_el, *elements = self.data[item]
+            return [first_el, *elements]
+        else:
             return self.data[item]
 
     def __setitem__(self, item, value):
-        if not callable(item):
-            self.data[item] = value
+        self.data[item] = value
 
     def __delitem__(self, item):
         del self.data[item]
@@ -37,10 +36,8 @@ class Sequence:
         return Iterator(self.data, -1)
 
     def __iadd__(self, other):
-        # for i in range(len(self.data)):
-        #     if isinstance(self.data[i], type(value)):
-        #         self.data[i] += value
-        return self.data + other.data
+        if isinstance(other, Sequence):
+            self.data += other.data
 
     def index(self, item):
         for i in range(len(self.data)):
@@ -55,8 +52,9 @@ class Sequence:
                 counter += 1
         return counter
 
-    # def append(self, item):
-    #     return self.data + array('i', item)
+    def append(self, item):
+        self.data += array(self.data.typecode, [*item])
+
 
 
 class Iterator:
