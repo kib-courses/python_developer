@@ -1,7 +1,7 @@
 from homework1 import Sequence
 
-array = Sequence('i', 1, 2, 3, 4, 5)
-array2 = Sequence('i', 15, 16, 17)
+array = Sequence('f', 1.0, 2.2, 3.4, 4.7, 5.8)
+array2 = Sequence('f', 15.5, 16.8, 17.9)
 
 def iterate():
     d = [i for i in array]
@@ -10,7 +10,6 @@ def iterate():
 def reverse():
     b = reversed(array)
     c = [i for i in b]
-    # print(b)
     print(c)
 
 
