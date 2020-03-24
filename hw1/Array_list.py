@@ -17,7 +17,7 @@ class Array_list:
                 if type(i) != float:
                     raise Exception("Wrong type of input data")
             self.arr_type = type(args[0])
-            self.data = array('f', args)
+            self.data = array('d', args)
         elif (type(args[0]) == str):
             for i in args:
                 if type(i) != str:
@@ -91,13 +91,10 @@ class Array_list:
         for i, k in enumerate(self.data):
             if k == item:
                 return i
-            elif (self.arr_type == 'i' or self.arr_type == 'f') and 0 <= k - item <= 0.000001:
-                return i
         if i is None:
             raise Exception("Item does not exist")
 
     def count(self, item):
-        print(self.data)
         if self.data is None:
             return 0
         elif type(item) != self.arr_type:
@@ -105,8 +102,6 @@ class Array_list:
         i = 0
         for k in self.data:
             if k == item:
-                i += 1
-            elif (self.arr_type == 'i' or self.arr_type == 'f') and 0 <= k - item <= 0.000001:
                 i += 1
         return i
 
@@ -117,7 +112,7 @@ class Array_list:
                 self.data = array('i', [item])
                 return
             elif (type(item) == float):
-                self.data = array('f', [item])
+                self.data = array('d', [item])
                 return
             elif (type(item) == str):
                 self.data = array('u', [item])
@@ -154,9 +149,6 @@ class Array_list:
             i = None
             for i, k in enumerate(self.data):
                 if k == item:
-                    self.pop(i)
-                    return
-                elif (self.arr_type == 'i' or self.arr_type == 'f') and 0 <= k - item <= 0.000001:
                     self.pop(i)
                     return
             if i is None:
