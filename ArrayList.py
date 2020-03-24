@@ -46,12 +46,7 @@ class ArrayList:
         self.array[key] = value
 
     def __delitem__(self, key):
-        i = self.index(key)
-        self.array = self.array[:i] + self.array[i + 1:]
-
-    def insert(self, index, value):
-        temp = array.array(self.type_dict[self.type], [value])
-        self.array = self.array[:index] + temp + self.array[index:]
+        self.array = self.array[:key] + self.array[key + 1:]
 
     def __contains__(self, item):
         for i in range(len(self.array)):
@@ -64,6 +59,10 @@ class ArrayList:
 
     def __reversed__(self):
         return Iterator(self.array, -1, 0, -1)
+
+    def insert(self, index, value):
+        temp = array.array(self.type_dict[self.type], [value])
+        self.array = self.array[:index] + temp + self.array[index:]
 
     def index(self, value):
         for i, el in enumerate(self):
@@ -113,3 +112,69 @@ class ArrayList:
 
     def __repr__(self):
         return self.array.__repr__()
+
+
+if __name__ == '__main__':
+    print('TESTS')
+    print('append')
+    arr1 = ArrayList(int)
+    arr1.append(1)
+    print(arr1)
+    print('--------------')
+    print('extend')
+    arr1.extend(2, 3)
+    print(arr1)
+    print('--------------')
+    print('iter')
+    for el in arr1:
+        print(el, end=' ')
+    # \n
+    print('')
+    print('--------------')
+    print('insert')
+    arr1.insert(2, 42)
+    print(arr1)
+    print('--------------')
+    print('reversed')
+    for el in reversed(arr1):
+        print(el, end=' ')
+        # \n
+        print('')
+    print('--------------')
+    print('reverse')
+    arr1.reverse()
+    print(arr1)
+    print('--------------')
+    print('remove')
+    arr1.remove(42)
+    print(arr1)
+    print('--------------')
+    print('pop')
+    arr1.append(43)
+    print(arr1)
+    arr1.pop(-2)
+    print(arr1)
+    print('--------------')
+    print('count')
+    arr1.extend(1, 1, 1)
+    print(arr1.count(1))
+    print('--------------')
+    print('index')
+    print(arr1)
+    print(arr1.index(1))
+    print('--------------')
+    print('get set del')
+    print(arr1[3])
+    arr1[3] = 44
+    print(arr1)
+    del arr1[3]
+    print(arr1)
+    print('--------------')
+    print('contain')
+    if 43 in arr1:
+        print('43 in arr1')
+    print('--------------')
+    print('init from iterable, +=')
+    arr2 = ArrayList(int, [44, 45, 46])
+    arr2 += arr1
+    print(arr2)
