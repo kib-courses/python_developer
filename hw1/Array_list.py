@@ -31,8 +31,11 @@ class Array_list:
                 yield self.data[i]
 
     def __len__(self):
+        k = 0
         if self.data is not None:
-            return len(self.data)
+            for i in self.data:
+                k += 1
+            return k
         return 0
 
     def __contains__(self, item):
