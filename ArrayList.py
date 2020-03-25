@@ -60,6 +60,9 @@ class ArrayList:
     def __reversed__(self):
         return Iterator(self.array, -1, 0, -1)
 
+    def __len__(self):
+        return len(self.array)
+
     def insert(self, index, value):
         temp = array.array(self.type_dict[self.type], [value])
         self.array = self.array[:index] + temp + self.array[index:]
