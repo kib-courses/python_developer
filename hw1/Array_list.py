@@ -120,7 +120,7 @@ class Array_list:
         elif type(item) != self.arr_type:
             raise Exception("Wrong type of input data")
         else:
-            self.data.fromlist([item])
+            self.data = self.data + Array_list(item).data
             return
 
     def clear(self):
