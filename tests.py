@@ -1,7 +1,7 @@
 from homework1 import Sequence
 
-array = Sequence('f', 1.0, 2.2, 3.4, 4.7, 5.8)
-array2 = Sequence('f', 15.5, 16.8, 17.9)
+array = Sequence('u', 'a', 'b', 'c', 'd', 'e')
+array2 = Sequence('u', 'g', 'h', 'k')
 
 def iterate():
     d = [i for i in array]
@@ -53,9 +53,9 @@ iterate()
 reverse()
 length()
 gets(2)
-sets(2, 9)
+sets(2, 't')
 deletes(3)
 adds()
-index_test(4)
-count_test(1)
-app_end(7)
+index_test('e')
+count_test('a')
+app_end('z')

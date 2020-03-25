@@ -25,7 +25,10 @@ class Sequence:
 
     def __contains__(self, item):
         for i in range(len(self.data)):
-            if abs(self.data[i] - item) < 10**-5:
+            if isinstance(self.data.typecode, str):
+                if self.data[i] == item:
+                    return True
+            elif abs(self.data[i] - item) < 10**-5:
                 return True
             return False
 
@@ -41,14 +44,20 @@ class Sequence:
 
     def index(self, item):
         for i in range(len(self.data)):
-            if abs(self.data[i] - item) < 10**-5:
+            if isinstance(self.data.typecode, str):
+                if self.data[i] == item:
+                    return i
+            elif abs(self.data[i] - item) < 10**-5:
                 return i
         return -1
 
     def count(self, item):
         counter = 0
         for i in range(len(self.data)):
-            if abs(self.data[i] - item) < 10**-5:
+            if isinstance(self.data.typecode, str):
+                if self.data[i] == item:
+                    counter += 1
+            elif abs(self.data[i] - item) < 10**-5:
                 counter += 1
         return counter
 
