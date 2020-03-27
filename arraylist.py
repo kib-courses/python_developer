@@ -9,6 +9,7 @@ class Iter:
         self.collections = collections
         self.cursor = cursor
 
+
     def __iter__(self):
         return self.cursor
 
@@ -92,7 +93,7 @@ class ArrayList:
         self.myarr += array(self.myarr.typecode, [value])
 
     def __clear__(self):
-        self.myarr = self.myarr.typecode
+        self.myarr = array(self.myarr.typecode)
 
     def pop(self, key=0.1):
         if key == 0.1:
