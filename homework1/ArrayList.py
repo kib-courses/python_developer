@@ -39,6 +39,8 @@ class ArrayList():
             for el in range(start, stop, step):
               buf += array(self._RList.typecode, [self._RList[el]])
             self._RList = buf
+        else:
+            return self._RList[index]
 
     def __contains__(self, item):
         if item in self._RList:
