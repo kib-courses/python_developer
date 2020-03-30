@@ -32,8 +32,7 @@ class ArrayList:
         self.array[key] = value
 
     def __delitem__(self, key):
-        i = self.index(key)
-        self.array = self.array[:i] + self.array[i + 1:]
+        self.array = self.array[:key] + self.array[key + 1:]
 
     def __contains__(self, item):
         for i in range(len(self.array)):
