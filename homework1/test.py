@@ -159,3 +159,22 @@ test.insert(4, 10.10000)
 print("Append - test.append(22.22)")
 test.append(22.22)
 test.print()
+
+print("Исправление ошибок")
+test = ArrayList(1,2,3,4,5,6)
+test.print()
+test.insert(-2, 35)
+test.print()
+test[1::1]
+test.print()
+test[1:5:2]
+test.print()
+
+test = ArrayList('aa', 'bb', 'cc')
+test.print()
+test[1::1]
+test.print()
+test = ArrayList()
+test.print()
+test.append('gg')
+test.print()

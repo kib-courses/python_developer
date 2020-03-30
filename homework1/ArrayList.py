@@ -1,4 +1,5 @@
 from array import *
+from MyIter import *
 
 class ArrayList():
     def __init__(self, *args):
@@ -15,7 +16,29 @@ class ArrayList():
                 self._RList += array('u', item)
 
     def __getitem__(self, index):
-        return self._RList[index]
+        if isinstance(index, slice):
+            if index.start != None:
+                start = index.start
+                if start < 0:
+                    start += len(self)
+            else:
+                start = 0
+            if index.stop != None:
+                stop = index.stop - 1
+                if stop < 0:
+                    stop += len(self)
+            else:
+                stop = len(self) - 1
+            if index.step == None:
+                step = 1
+            else:
+                if index.step < 0:
+                    stop = index.stop + 1
+                step = index.step
+            buf = array(self._RList.typecode,)
+            for el in range(start, stop, step):
+              buf += array(self._RList.typecode, [self._RList[el]])
+            self._RList = buf
 
     def __contains__(self, item):
         if item in self._RList:
@@ -24,7 +47,7 @@ class ArrayList():
             return False
 
     def __iter__(self):
-        return iter(self._RList)
+       return MyIter(self._RList, -1)
 
     def __len__(self):
         count = 0
@@ -39,9 +62,12 @@ class ArrayList():
     def count(self, elem):
         amount = 0
         for el in self._RList:
-          if(el == elem):
+          if (el == elem):
             amount += 1
         return amount
+    # def change_type(self, type):
+    #     if type == float:
+    #
 
     def index(self, elem):
         for i, el in enumerate(self._RList):
@@ -59,7 +85,11 @@ class ArrayList():
 
     # Добавление нового элемента в конец []
     def append(self, elem):
-        if type(elem) == int or type(elem) == float or type(elem) == str:
+        if self.__len__() == 0:
+            buf = ArrayList(elem)
+            self._RList = buf._RList
+        elif type(elem) == int or type(elem) == float or type(elem) == str:
+            buf = array(self._RList.typecode, )
             buf = ArrayList(elem)
             self._RList += buf._RList
     # Удаление по значению
@@ -70,12 +100,12 @@ class ArrayList():
             if el != elem:
                 self.extend(el)
 
-    def reverse(self):# Переворачивает
-        buf = self._RList
-        self._RList = array(self._RList.typecode,)
-        size_of_buf = buf.__len__()
-        for i, x in enumerate(buf):
-            self.extend(buf[size_of_buf-i-1])
+    def reverse(self): # Переворачивает
+        buf = array(self._RList.typecode,)
+        it = self.__iter__().last()
+        for i, x in enumerate(self):
+           buf += array(self._RList.typecode, [self._RList[it - i]])
+        self._RList = buf
 
     # Удаление по индексу
     def pop(self, index):
@@ -85,7 +115,9 @@ class ArrayList():
             if i != index:
                 self.extend(el)
 
-    def insert(self, index, elem):# вставляет новые/ый элемент/ты на указанное место
+    def insert(self, index, elem): # вставляет новые/ый элемент/ты на указанное место
+        if index < 0: # Учла, если индекс отрицательный.
+            index = self.__len__() + index
         buf_l = ArrayList()
         buf_r = ArrayList()
         if type(elem) is not list:
@@ -115,14 +147,14 @@ class ArrayList():
                  for el in elem:
                     self.extend(el)
             else:
-                 self.extend(el)
+                 self.extend(elem)
             self.extend(buf_r)
         else:
             if type(elem) == list or type(elem) == str or type(elem) == tuple:
                 for el in elem:
                     self.extend(el)
             else:
-                self.extend(el)
+                self.extend(elem)
             self.extend(buf_r)
 
     def print(self):
