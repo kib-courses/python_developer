@@ -1,4 +1,4 @@
-import collections
+import collections.abc
 from array import array
 
 
@@ -7,15 +7,19 @@ class iterator:
     def __init__(self, list, direct):
         self._list = list
         self._direct = direct
-        self._ind = 0
+        if direct < 0:
+            self._ind = len(list)-1
+        else:
+            self._ind = 0
 
     def __iter__(self):
         return self
 
     def __next__(self):
         if self._ind < len(self._list) and self._ind >= 0:
-            yield self._list[self._ind]
+            x = self._list[self._ind]
             self._ind += self._direct
+            return x
         else:
             raise StopIteration
 
@@ -43,7 +47,7 @@ class arraylist:
             end = start + 1
         else:
             end = stop
-        return self.__data[index:end:step]
+        return self.arraylist[index:end:step]
 
     def __delitem__(self, index):
         x = self.indcheck(index)
@@ -79,7 +83,7 @@ class arraylist:
         return iterator(self.arraylist, -1)
 
     def indcheck(self, index):
-        x = 0
+        x = index
         if index < 0:
             x = self.capacity - (abs(index) % self.capacity)
         elif index > self.capacity:
@@ -104,7 +108,7 @@ class arraylist:
             return None
 
     def remove(self, item):
-        a = self.arraylist.index(item)
+        a = self.index(item)
         if a:
             t = self.arraylist[:a]
             t = t + self.arraylist[a + 1:]
