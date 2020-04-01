@@ -42,7 +42,7 @@ class ArrayList:
         return repr(self.array)
 
     # добавление элементов(с возможностью добавления сразу нескольких(но минимум одного))
-    def append(self, el, *keys):
+    def append(self, el):
         if (self.length < self.capacity):
             if (str(type(el)) == self.type):
                 self.array += array(self.array.typecode, [el])
@@ -51,8 +51,6 @@ class ArrayList:
                 raise TypeError('Incorrect key type')
         else:
             raise IndexError('Array is full')
-        for key in keys:
-            self.append(key)
 
     # вставка на определенную позицию
     def insert(self, pos, el):
