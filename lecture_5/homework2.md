@@ -13,6 +13,15 @@
 - тип документа, удостоверяющего личность (паспорт, загран либо водительские права)
 - номер документа, удостоверяющего личность
 
+Эта информация должна быть доступна соответственно из полей:
+
+ - first_name
+ - last_name
+ - birth_date
+ - phone
+ - document_type
+ - document_id
+
 ### Создание объекта
 
 Объект больного должен поддерживать два способа создания:
@@ -38,9 +47,9 @@
 
 
 ```python
-    collection = PatientCollection(path_to_file)
-    for patient in collection:
-        print(patient)
+collection = PatientCollection(path_to_file)
+for patient in collection:
+    print(patient)
 ```
 
 При этом patient должен быть объектом класса Patient.
