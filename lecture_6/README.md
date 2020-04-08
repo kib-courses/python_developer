@@ -1,0 +1,1 @@
+Презентация по Git взята из курса Data Mining in Action
