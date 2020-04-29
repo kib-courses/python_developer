@@ -1,4 +1,4 @@
-# Lecture 9 - networking, http, flask
+# Lecture 9 - networking, http
 
 # Networking
 ## HTTP Overview, Terms
