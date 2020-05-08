@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bender Sandbox Monitoring</title>
+</head>
+
+<script>
+    function perform_request(url, json) {
+        req = new XMLHttpRequest();
+        json = JSON.stringify(json);
+        req.open("POST", url, true);
+        req.setRequestHeader('Content-type', 'application/json; utf-8');
+        // req.onreadystatechange = function () {
+        //     alert(1)
+        // };
+        req.send(json);
+        alert(req.response)
+    }
+</script>
+
+<body>
+    <table border="1">
+        <tr>
+            <td>Branch_ID</td>
+            <td>User_ID</td>
+            <td>Image_ID</td>
+            <td>Image_Created</td>
+            <td>Container_ID</td>
+            <td>Container_Created</td>
+            <td>Container_Status</td>
+            <td>Link</td>
+            <td>Click to delete</td>
+        </tr>
+    {% for container in containers %}
+        <tr>
+            <td>{{ container.get("branch_id") }}</td>
+            <td>{{ container.get("user_id") }}</td>
+            <td>{{ container.get("image_id") }}</td>
+            <td>{{ container.get("image_dttm") }}</td>
+            <td>{{ container.get("container_id") }}</td>
+            <td>{{ container.get("container_dttm") }}</td>
+            <td>{{ container.get("container_status") }}</td>
+            <td><a href="{{ container.get('link') }}">{{ container.get('link') }}</a></td>
+            <td>
+                <button type="button" onclick="perform_request('{{ delete_url }}', {{ container | body4delete }})">
+                    Wash it all away!
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>
