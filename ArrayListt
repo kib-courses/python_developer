@@ -1,0 +1,57 @@
+from array import array
+
+class ArrayList:
+    def __init__(self, type, *values):
+        self.values = array(type, values)
+        #print(self.values)
+
+    def __len__(self):
+        return len(self.values)
+
+    def __getitem__(self, index):
+        return self.values[index]
+
+    def __contains__(self, elem):
+        if elem in self.values:
+            return True
+        else:
+            return False
+
+    def __iter__(self):
+        return Iterator(self.values)
+
+    def __reversed__(self):
+        return Iterator(self.values, -1)
+
+    def index(self, elem):
+        for idx, x in enumerate(self):
+            if x == elem:
+                return idx
+        return None
+
+    def count(self, elem):
+        cnt = 0
+        for x in self:
+            if x == elem:
+                cnt += 1
+        return cnt
+
+class Iterator:
+    def __iter__(self):
+        return self
+
+    def __init__(self, collection, cursor=1):
+        self.collection = collection
+        self.cursor = cursor
+        if cursor == 1:
+            self._cursor = -1
+            self.step = 1
+        if cursor == -1:
+            self._cursor = len(self.collection)
+            self.step = -1
+
+    def __next__(self):
+        self._cursor += self.step
+        if self._cursor < 0 or self._cursor >= len(self.collection):
+            raise StopIteration()
+        return self.collection[self._cursor]
